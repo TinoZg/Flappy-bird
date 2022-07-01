@@ -103,7 +103,7 @@ function keyPressed() {
   }
 }
 
-function touchStarted() {
+function mousePressed() {
     wingSound.play();
     bird.speed += upForce;
     return false;
