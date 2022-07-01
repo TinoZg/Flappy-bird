@@ -42,7 +42,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(600, 400);
+  createCanvas(800, 600);
   noLoop();
   bird = new Bird(animation);
   obstacles[0] = new Obstacle();
@@ -97,6 +97,13 @@ function draw() {
 }
 
 function keyPressed() {
+  if (keyCode === UP_ARROW) {
+    wingSound.play();
+    bird.speed += upForce;
+  }
+}
+
+function touchStarted() {
   if (keyCode === UP_ARROW) {
     wingSound.play();
     bird.speed += upForce;
