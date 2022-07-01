@@ -37,8 +37,8 @@ function preload() {
   backgroundImage = loadImage('./Images/background.png');
   gameOverImage = loadImage('./Images/game-over.png');
   pipeImage = loadImage('./Images/pipe.png');
-  animation.push(loadImage('./images/bird-1.png'));
-  animation.push(loadImage('./images/bird-2.png'));
+  animation.push(loadImage('./Images/bird-1.png'));
+  animation.push(loadImage('./Images/bird-2.png'));
 }
 
 function setup() {
