@@ -104,10 +104,8 @@ function keyPressed() {
 }
 
 function touchStarted() {
-  if (keyCode === UP_ARROW) {
     wingSound.play();
     bird.speed += upForce;
-  }
 }
 
 function startRestart() {
