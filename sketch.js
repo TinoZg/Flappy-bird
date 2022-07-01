@@ -106,6 +106,7 @@ function keyPressed() {
 function touchStarted() {
     wingSound.play();
     bird.speed += upForce;
+    return false;
 }
 
 function startRestart() {
