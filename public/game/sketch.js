@@ -16,7 +16,7 @@
 // "Bevouliin free Bee flappy bird sprite sheets" by bevouliin.com licensed CC0: https://opengameart.org/content/bevouliin-free-bee-flappy-bird-sprite-sheets
 
 let time = 120; //Obstacles are spawned every 2 seconds;
-const upForce = -22;
+const upForce = -20;
 let obstacles = [];
 let bird;
 let gameOver = false;

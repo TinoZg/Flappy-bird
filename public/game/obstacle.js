@@ -1,6 +1,6 @@
 class Obstacle {
   constructor() {
-    this.gap = floor(random(height * 0.15, height * 0.25));
+    this.gap = floor(random(height * 0.2, height * 0.25));
     this.upperHeight = floor(random(0.1 * height, 0.5 * height));
     this.width = 150;
     this.lowerHeight = height - this.upperHeight - this.gap;

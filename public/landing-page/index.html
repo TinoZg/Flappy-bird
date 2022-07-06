@@ -26,7 +26,34 @@
 
   <script>
     document.getElementById('button').addEventListener('click', (event) => {
+      // Prevent page form reloading
       event.preventDefault();
+
+      // Get username
+      let username = document.getElementById('exampleInputText').value;
+
+      // Check if username is valid
+      if (username.trim() == '') {
+        alert('Enter username');
+        return;
+      }
+
+      // Prepare data to send to server
+      const data = {
+        username: username,
+      };
+
+      // Set options for fetch()
+      const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      };
+
+      // Send data with fetch
+      fetch('/api', options);
+
+      // Switch to URL for the game
       location.href = '../game/index.html';
     });
   </script>

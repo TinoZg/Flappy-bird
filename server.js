@@ -7,3 +7,8 @@ app.listen(port, () => {
 });
 
 app.use(express.static('public'));
+app.use(express.json({ limit: '1mb' }));
+app.post('/api', (request, response) => {
+  console.log(request.body);
+  response.end();
+});
