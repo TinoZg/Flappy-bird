@@ -1,11 +1,11 @@
 class Bird {
   constructor(animation) {
-    this.y = height * 0.5;
-    this.width = 50;
-    this.height = 50;
+    this.y = 250;
+    this.width = 150;
+    this.height = 150;
     this.x = this.width;
     this.speed = 0;
-    this.gravity = 0.3;
+    this.gravity = 0.5;
     this.animation = animation;
   }
 
@@ -15,7 +15,7 @@ class Bird {
 
     // movement
     this.speed += this.gravity;
-    this.speed = constrain(this.speed, -10, 10);
+    this.speed = constrain(this.speed, -25, 25);
     this.y += this.speed;
   }
 

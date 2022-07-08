@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container d-flex justify-content-center">
+      <form>
+        <div class="form-group mt-2 text-center">
+          <label for="exampleInputText">Nickname:</label>
+          <input type="text" class="form-control mt-2" id="exampleInputText" placeholder="Enter nickname" />
+          <button type="submit" class="btn btn-primary mt-2" id="button">Start game</button>
+          <button type="submit" class="btn btn-secondary mt-2" id="leaderboard">Go to leaderboard</button>
+        </div>
+      </form>
+    </div>
+  </body>
+
+  <script>
+    document.getElementById('button').addEventListener('click', (event) => {
+      // Prevent page form reloading
+      event.preventDefault();
+
+      // Get username
+      let username = document.getElementById('exampleInputText').value;
+
+      // Check if username is valid
+      if (username.trim() == '') {
+        alert('Enter username');
+        return;
+      }
+
+      // Prepare data to send to server
+      const data = {
+        username: username,
+      };
+
+      // Set options for fetch()
+      const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      };
+
+      // Send data with fetch
+      fetch('/username', options);
+
+      // Switch to URL for the game
+      location.href = '../game/index.html';
+    });
+
+    document.getElementById('leaderboard').addEventListener('click', (event) => {
+      event.preventDefault();
+      // Switch to URL for the leaderboard
+      location.href = '../leader-board/index.html';
+    });
+  </script>
+</html>

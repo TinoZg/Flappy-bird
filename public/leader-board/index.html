@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 style="display: none">Game Over</h1>
+    <h2 style="display: none" id="score"></h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Rank</th>
+          <th scope="col">Nickname</th>
+          <th scope="col">score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td id="0-username"></td>
+          <td id="0-score"></td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td id="1-username"></td>
+          <td id="1-score"></td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td id="2-username"></td>
+          <td id="2-score"></td>
+        </tr>
+        <tr>
+          <th scope="row">4</th>
+          <td id="3-username"></td>
+          <td id="3-score"></td>
+        </tr>
+        <tr>
+          <th scope="row">5</th>
+          <td id="4-username"></td>
+          <td id="4-score"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button class="btn btn-primary" id="button">Play again</button>
+
+    <script>
+      let username;
+
+      async function getScore() {
+        const usernameData = await fetch('/username');
+        const usernameJson = await usernameData.json();
+        username = usernameJson.username;
+
+        const scoreData = await fetch('/score');
+        const scoreJson = await scoreData.json();
+
+        if (username) {
+          document.querySelector('h1').style.display = 'block';
+          document.querySelector('h2').style.display = 'block';
+        }
+
+        if (scoreJson.score > 0) {
+          document.getElementById('score').textContent = `Congrats ${username}, Your total score is ${scoreJson.score}`;
+        } else {
+          document.getElementById('score').textContent = 'Better luck next time';
+        }
+
+        const leaderboardData = await fetch('/leaderboard');
+        const leaderboardJson = await leaderboardData.json();
+        for (let i = 0; i < leaderboardJson.length; i++) {
+          document.getElementById(`${i}-username`).textContent = leaderboardJson[i].username;
+          document.getElementById(`${i}-score`).textContent = leaderboardJson[i].score;
+        }
+      }
+
+      getScore();
+
+      document.getElementById('button').addEventListener('click', (event) => {
+        event.preventDefault();
+        if (username) {
+          location.href = '../game/index.html';
+        } else {
+          location.href = '../landing-page/index.html';
+        }
+      });
+    </script>
+  </body>
+</html>

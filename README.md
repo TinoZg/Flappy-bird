@@ -2,4 +2,4 @@
 
 ## Game Commands
 
-Press `up arrow` to jump
+Tap screen to jump
