@@ -19,6 +19,7 @@
           <label for="exampleInputText">Nickname:</label>
           <input type="text" class="form-control mt-2" id="exampleInputText" placeholder="Enter nickname" />
           <button type="submit" class="btn btn-primary mt-2" id="button">Start game</button>
+          <button type="submit" class="btn btn-secondary mt-2" id="leaderboard">Go to leaderboard</button>
         </div>
       </form>
     </div>
@@ -51,10 +52,16 @@
       };
 
       // Send data with fetch
-      fetch('/api', options);
+      fetch('/username', options);
 
       // Switch to URL for the game
       location.href = '../game/index.html';
+    });
+
+    document.getElementById('leaderboard').addEventListener('click', (event) => {
+      event.preventDefault();
+      // Switch to URL for the leaderboard
+      location.href = '../leader-board/index.html';
     });
   </script>
 </html>

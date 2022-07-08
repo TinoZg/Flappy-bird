@@ -13,18 +13,86 @@
     <title>Document</title>
   </head>
   <body>
-    <p>Game Over</p>
-    <p>Your total score is <span id="total-score"> 10</span></p>
+    <h1 style="display: none">Game Over</h1>
+    <h2 style="display: none" id="score"></h2>
     <table class="table">
-      Leaderboard
+      <thead>
+        <tr>
+          <th scope="col">Rank</th>
+          <th scope="col">Nickname</th>
+          <th scope="col">score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td id="0-username"></td>
+          <td id="0-score"></td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td id="1-username"></td>
+          <td id="1-score"></td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td id="2-username"></td>
+          <td id="2-score"></td>
+        </tr>
+        <tr>
+          <th scope="row">4</th>
+          <td id="3-username"></td>
+          <td id="3-score"></td>
+        </tr>
+        <tr>
+          <th scope="row">5</th>
+          <td id="4-username"></td>
+          <td id="4-score"></td>
+        </tr>
+      </tbody>
     </table>
 
     <button class="btn btn-primary" id="button">Play again</button>
 
     <script>
+      let username;
+
+      async function getScore() {
+        const usernameData = await fetch('/username');
+        const usernameJson = await usernameData.json();
+        username = usernameJson.username;
+
+        const scoreData = await fetch('/score');
+        const scoreJson = await scoreData.json();
+
+        if (username) {
+          document.querySelector('h1').style.display = 'block';
+          document.querySelector('h2').style.display = 'block';
+        }
+
+        if (scoreJson.score > 0) {
+          document.getElementById('score').textContent = `Congrats ${username}, Your total score is ${scoreJson.score}`;
+        } else {
+          document.getElementById('score').textContent = 'Better luck next time';
+        }
+
+        const leaderboardData = await fetch('/leaderboard');
+        const leaderboardJson = await leaderboardData.json();
+        for (let i = 0; i < leaderboardJson.length; i++) {
+          document.getElementById(`${i}-username`).textContent = leaderboardJson[i].username;
+          document.getElementById(`${i}-score`).textContent = leaderboardJson[i].score;
+        }
+      }
+
+      getScore();
+
       document.getElementById('button').addEventListener('click', (event) => {
         event.preventDefault();
-        location.href = '../game/index.html';
+        if (username) {
+          location.href = '../game/index.html';
+        } else {
+          location.href = '../landing-page/index.html';
+        }
       });
     </script>
   </body>

@@ -1,14 +1,69 @@
 const express = require('express');
-const app = express();
-const port = 3000;
+const Datastore = require('nedb');
+require('dotenv').config();
 
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Create new database
+const database = new Datastore('database.db');
+// Load database in memory
+database.loadDatabase();
+
+// Start listening on port 3000
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
 });
 
+// Serve static files (html, css, front end JavaScript) from public folder
 app.use(express.static('public'));
+
+// Make server parse incoming data as JSON, and limit input size to 1mb
 app.use(express.json({ limit: '1mb' }));
-app.post('/api', (request, response) => {
-  console.log(request.body);
+
+// Variable to store username and score
+const userData = {};
+
+// API path to recieve username
+app.post('/username', (request, response) => {
+  userData.username = request.body.username;
   response.end();
+});
+
+// API path to recieve score
+app.post('/score', (request, response) => {
+  userData.score = request.body.score;
+  if (request.body.score > 0) {
+    database.insert(userData);
+  }
+  response.end();
+});
+
+// API path to get username
+app.get('/username', (request, response) => {
+  response.json(userData);
+  response.end();
+});
+
+// API path to get score
+app.get('/score', (request, response) => {
+  response.json(userData);
+  response.end();
+});
+
+// API path to get leaderboard (top 5 scores)
+app.get('/leaderboard', (request, response) => {
+  database
+    .find({})
+    .sort({ score: -1 })
+    .limit(5)
+    .exec((err, docs) => {
+      if (err) {
+        console.error(err);
+        response.end();
+      } else {
+        response.json(docs);
+        response.end();
+      }
+    });
 });

@@ -68,7 +68,7 @@ function draw() {
         obstacle.x,
         height - obstacle.lowerHeight,
         obstacle.width,
-        height //obstacle.upperHeight
+        height
       )
     ) {
       gameOver = true;
@@ -78,13 +78,35 @@ function draw() {
   text(`score: ${score}`, 10, 60);
 
   if (gameOver) {
+    noLoop();
+
+    // Prepare data to send to server
+    const data = {
+      score: score,
+    };
+
+    // Set options for fetch()
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    };
+
+    // Send data with fetch
+    fetch('/score', options);
     location.href = '../leader-board/index.html';
   }
 }
 
-function keyPressed() {
-  if (keyCode === UP_ARROW) {
-    wingSound.play();
-    bird.speed += upForce;
-  }
+// function keyPressed() {
+//   if (keyCode === UP_ARROW) {
+//     wingSound.play();
+//     bird.speed += upForce;
+//   }
+// }
+
+function mousePressed() {
+  wingSound.play();
+  bird.speed += upForce;
+  return false;
 }
