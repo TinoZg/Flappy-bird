@@ -26,6 +26,8 @@ let backgroundImage;
 let pipeImage;
 let animation = [];
 
+p5.disableFriendlyErrors = true;
+
 function preload() {
   wingSound = loadSound('./music/sfx_wing.mp3');
   backgroundImage = loadImage('./images/background.png');
@@ -35,6 +37,7 @@ function preload() {
 }
 
 function setup() {
+  pixelDensity(1);
   createCanvas(windowWidth, windowHeight);
   textStyle(BOLD);
   textSize(80);
