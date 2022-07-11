@@ -30,7 +30,7 @@
 
   <script>
     // Check if username exists in local storage
-    const usernameFromLocalStorage = localStorage.getItem('username').toLocaleLowerCase();
+    const usernameFromLocalStorage = localStorage.getItem('username').toLowerCase();
 
     if (usernameFromLocalStorage) {
       const welcomeMessage = document.createElement('p');
@@ -43,7 +43,7 @@
       event.preventDefault();
 
       // Get username from input field
-      const usernameFromInput = document.getElementById('exampleInputText').value.trim().toLocaleLowerCase();
+      const usernameFromInput = document.getElementById('exampleInputText').value.trim().toLowerCase();
 
       // Check if username is valid
       if (usernameFromLocalStorage === null && usernameFromInput === '') {
