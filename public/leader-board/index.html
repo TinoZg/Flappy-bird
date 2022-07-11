@@ -10,7 +10,7 @@
       integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
       crossorigin="anonymous"
     />
-    <title>Document</title>
+    <title>Leader Board</title>
   </head>
   <body>
     <h1 style="display: none">Game Over</h1>
@@ -55,12 +55,8 @@
     <button class="btn btn-primary" id="button">Play again</button>
 
     <script>
-      let username;
-
       async function getScore() {
-        const usernameData = await fetch('/username');
-        const usernameJson = await usernameData.json();
-        username = usernameJson.username;
+        const username = localStorage.getItem('username');
 
         const scoreData = await fetch('/score');
         const scoreJson = await scoreData.json();
@@ -88,7 +84,7 @@
 
       document.getElementById('button').addEventListener('click', (event) => {
         event.preventDefault();
-        if (username) {
+        if (localStorage.getItem('username')) {
           location.href = '../game/index.html';
         } else {
           location.href = '../landing-page/index.html';

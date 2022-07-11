@@ -85,6 +85,7 @@ function draw() {
 
     // Prepare data to send to server
     const data = {
+      username: localStorage.getItem('username'),
       score: score,
     };
 
@@ -100,13 +101,6 @@ function draw() {
     location.href = '../leader-board/index.html';
   }
 }
-
-// function keyPressed() {
-//   if (keyCode === UP_ARROW) {
-//     wingSound.play();
-//     bird.speed += upForce;
-//   }
-// }
 
 function mousePressed() {
   wingSound.play();

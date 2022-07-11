@@ -24,24 +24,12 @@ app.use(express.json({ limit: '1mb' }));
 // Variable to store username and score
 const userData = {};
 
-// API path to recieve username
-app.post('/username', (request, response) => {
-  userData.username = request.body.username;
-  response.end();
-});
-
-// API path to recieve score
+// API path to recieve username and score
 app.post('/score', (request, response) => {
-  userData.score = request.body.score;
   if (request.body.score > 0) {
-    database.insert(userData);
+    userData.score = request.body.score;
+    database.insert(request.body);
   }
-  response.end();
-});
-
-// API path to get username
-app.get('/username', (request, response) => {
-  response.json(userData);
   response.end();
 });
 
