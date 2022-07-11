@@ -24,6 +24,11 @@ app.use(express.json({ limit: '1mb' }));
 // Variable to store username and score
 const userData = {};
 
+// Route to root directory (required for glitch)
+app.get('/', (request, response) => {
+  response.sendFile(__dirname + '/public/landing-page/index.html');
+});
+
 // API path to recieve username and score
 app.post('/score', (request, response) => {
   if (request.body.score > 0) {
