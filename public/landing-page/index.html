@@ -30,7 +30,7 @@
 
   <script>
     // Check if username exists in local storage
-    const usernameFromLocalStorage = localStorage.getItem('username').toLowerCase();
+    const usernameFromLocalStorage = localStorage.getItem('username');
 
     if (usernameFromLocalStorage) {
       const welcomeMessage = document.createElement('p');
@@ -43,7 +43,7 @@
       event.preventDefault();
 
       // Get username from input field
-      const usernameFromInput = document.getElementById('exampleInputText').value.trim().toLowerCase();
+      const usernameFromInput = document.getElementById('exampleInputText').value;
 
       // Check if username is valid
       if (usernameFromLocalStorage === null && usernameFromInput === '') {
@@ -53,9 +53,9 @@
 
       // Save input username to local storage if it's different than local storage username
       if (usernameFromInput !== usernameFromLocalStorage && usernameFromInput !== '') {
-        localStorage.setItem('username', usernameFromInput);
+        localStorage.setItem('username', usernameFromInput.trim().toLocaleLowerCase());
       } else {
-        localStorage.setItem('username', usernameFromLocalStorage);
+        localStorage.setItem('username', usernameFromLocalStorage.toLocaleLowerCase());
       }
 
       // Switch to game URL
