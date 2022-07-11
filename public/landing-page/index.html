@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <title>Landing Page</title>
+  </head>
+  <body>
+    <div class="container d-flex justify-content-center">
+      <h1 style="display: none" class="text-center">
+        Hi <span></span>. If you don't want to switch nickname - click Start game
+      </h1>
+      <form>
+        <div class="form-group mt-2 text-center">
+          <label for="exampleInputText">Choose a new nickname:</label>
+          <input type="text" class="form-control mt-2" id="exampleInputText" placeholder="Enter nickname" />
+          <button type="submit" class="btn btn-primary mt-2" id="button">Start game</button>
+          <button type="submit" class="btn btn-secondary mt-2" id="leaderboard">Go to leaderboard</button>
+        </div>
+      </form>
+    </div>
+  </body>
+
+  <script>
+    // Check if username exists in local storage
+    const usernameFromLocalStorage = localStorage.getItem('username').toLocaleLowerCase();
+
+    if (usernameFromLocalStorage) {
+      const welcomeMessage = document.createElement('p');
+      welcomeMessage.textContent = ` Hi ${usernameFromLocalStorage}. If you don't want to switch nickname - click Start game.`;
+      document.querySelector('body').prepend(welcomeMessage);
+    }
+
+    document.getElementById('button').addEventListener('click', (event) => {
+      // Prevent page form reloading
+      event.preventDefault();
+
+      // Get username from input field
+      const usernameFromInput = document.getElementById('exampleInputText').value.trim().toLocaleLowerCase();
+
+      // Check if username is valid
+      if (usernameFromLocalStorage === null && usernameFromInput === '') {
+        alert('Enter username');
+        return;
+      }
+
+      // Save input username to local storage if it's different than local storage username
+      if (usernameFromInput !== usernameFromLocalStorage && usernameFromInput !== '') {
+        localStorage.setItem('username', usernameFromInput);
+      } else {
+        localStorage.setItem('username', usernameFromLocalStorage);
+      }
+
+      // Switch to game URL
+      location.href = '../game/index.html';
+    });
+
+    document.getElementById('leaderboard').addEventListener('click', (event) => {
+      event.preventDefault();
+      // Switch to URL for the leaderboard
+      location.href = '../leader-board/index.html';
+    });
+  </script>
+</html>
