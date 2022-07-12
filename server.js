@@ -1,14 +1,49 @@
 const express = require('express');
-const Datastore = require('nedb');
+const { MongoClient, ServerApiVersion } = require('mongodb');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Create new database
-const database = new Datastore('.data/database.db');
-// Load database in memory
-database.loadDatabase();
+const uri = `mongodb+srv://tino:${process.env.PASSWORD}@cluster.dhhs3yx.mongodb.net/?retryWrites=true&w=majority`;
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverApi: ServerApiVersion.v1,
+});
+
+// The database to use
+const dbName = 'game';
+
+async function run() {
+  try {
+    await client.connect();
+    console.log('Connected to server.');
+    const db = client.db(dbName);
+
+    // Use the collection users
+    const col = db.collection('users');
+
+    // Construct a user
+    let user = {
+      nickname: 'test',
+      score: 10,
+    };
+
+    // Insert signle document, wait for promise so we can read it back
+    const p = await col.insertOne(user);
+    // Find one document
+    const myDoc = await col.findOne();
+    // Print to the console
+    console.log(myDoc);
+  } catch (error) {
+    console.error(err.stack);
+  } finally {
+    await client.close();
+  }
+}
+
+run().catch(console.dir);
 
 // Start listening on port 3000
 app.listen(PORT, () => {
