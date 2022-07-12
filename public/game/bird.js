@@ -1,8 +1,8 @@
 class Bird {
   constructor(animation) {
     this.y = 250;
-    this.width = 150;
-    this.height = 150;
+    this.width = screen.height * 0.18;
+    this.height = screen.height * 0.18;
     this.x = this.width;
     this.speed = 0;
     this.gravity = 0.5;
