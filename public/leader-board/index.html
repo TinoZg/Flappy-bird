@@ -10,17 +10,18 @@
       integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
       crossorigin="anonymous"
     />
-    <title>Leader Board</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@animxyz/core" />
+    <title>Flappy Bird</title>
   </head>
-  <body>
-    <h1 style="display: none">Game Over</h1>
-    <h2 style="display: none" id="score"></h2>
-    <table class="table">
+  <body xyz="fade up-100% flip-down flip-right-50% rotate-left-100% origin-bottom duration-10 stagger-4">
+    <h2 style="display: none" class="text-center xyz-in">Game Over!</h2>
+    <h3 style="display: none" id="score" class="text-center xyz-in"></h3>
+    <table class="table table-borderless xyz-in mt-3">
       <thead>
         <tr>
           <th scope="col">Rank</th>
           <th scope="col">Nickname</th>
-          <th scope="col">score</th>
+          <th scope="col">Score</th>
         </tr>
       </thead>
       <tbody>
@@ -52,7 +53,7 @@
       </tbody>
     </table>
 
-    <button class="btn btn-primary" id="button">Play again</button>
+    <button class="btn btn-primary xyz-in" id="button">Play again</button>
 
     <script>
       async function getScore() {
@@ -62,12 +63,14 @@
         const scoreJson = await scoreData.json();
 
         if (username) {
-          document.querySelector('h1').style.display = 'block';
           document.querySelector('h2').style.display = 'block';
+          document.querySelector('h3').style.display = 'block';
         }
 
         if (scoreJson.score > 0) {
-          document.getElementById('score').textContent = `Congrats ${username}, Your total score is ${scoreJson.score}`;
+          document.getElementById(
+            'score'
+          ).innerHTML = `Congrats <strong>${username}</strong>. Your total score is <strong>${scoreJson.score}</strong>.`;
         } else {
           document.getElementById('score').textContent = 'Better luck next time';
         }

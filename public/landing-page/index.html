@@ -10,19 +10,17 @@
       integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
       crossorigin="anonymous"
     />
-    <title>Landing Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@animxyz/core" />
+    <title>Flappy Bird</title>
   </head>
-  <body>
-    <div class="container d-flex justify-content-center">
-      <h1 style="display: none" class="text-center">
-        Hi <span></span>. If you don't want to switch nickname - click Start game
-      </h1>
+  <body xyz="fade up-100% flip-down flip-right-50% rotate-left-100% origin-bottom duration-10 stagger-4">
+    <div class="container d-flex justify-content-center text-center xyz-in">
       <form>
         <div class="form-group mt-2 text-center">
-          <label for="exampleInputText">Choose a new nickname:</label>
-          <input type="text" class="form-control mt-2" id="exampleInputText" placeholder="Enter nickname" />
-          <button type="submit" class="btn btn-primary mt-2" id="button">Start game</button>
-          <button type="submit" class="btn btn-secondary mt-2" id="leaderboard">Go to leaderboard</button>
+          <label for="exampleInputText" class="lead xyz-in">Choose a new nickname:</label>
+          <input type="text" class="form-control mt-2 xyz-in" id="exampleInputText" placeholder="Enter nickname" />
+          <button type="submit" class="btn btn-primary mt-2 xyz-in" id="button">Start game</button>
+          <button type="submit" class="btn btn-secondary mt-2 xyz-in" id="leaderboard">Go to leaderboard</button>
         </div>
       </form>
     </div>
@@ -34,7 +32,8 @@
 
     if (usernameFromLocalStorage) {
       const welcomeMessage = document.createElement('p');
-      welcomeMessage.textContent = ` Hi ${usernameFromLocalStorage}. If you don't want to switch nickname - click Start game.`;
+      welcomeMessage.innerHTML = ` Hi <strong>${usernameFromLocalStorage}</strong>.<br> If you don't want to switch nickname - click Start game.`;
+      welcomeMessage.classList.add('text-center', 'h5', 'xyz-in');
       document.querySelector('body').prepend(welcomeMessage);
     }
 
