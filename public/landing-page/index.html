@@ -58,8 +58,19 @@
         localStorage.setItem('username', usernameFromLocalStorage.toLocaleLowerCase());
       }
 
+      const data = { username: 'test', score: 10 };
+
+      // Set options for fetch()
+      const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      };
+
+      // Send data with fetch
+      fetch('/test', options);
       // Switch to game URL
-      location.href = '../game/index.html';
+      // location.href = '../game/index.html';
     });
 
     document.getElementById('leaderboard').addEventListener('click', (event) => {
