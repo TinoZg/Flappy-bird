@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Create new database
-const database = new Datastore('database.db');
+const database = new Datastore('.data/database.db');
 // Load database in memory
 database.loadDatabase();
 
