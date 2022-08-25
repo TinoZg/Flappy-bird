@@ -15,6 +15,9 @@
 // Bird images:
 // "Bevouliin free Bee flappy bird sprite sheets" by bevouliin.com licensed CC0: https://opengameart.org/content/bevouliin-free-bee-flappy-bird-sprite-sheets
 
+// Favicon:
+// By ghaiklor licensed MIT: https://github.com/ghaiklor/flappy-bird/blob/master/favicon.ico
+
 let time = 120; //Obstacles are spawned every 2 seconds;
 const upForce = -20;
 let obstacles = [];
@@ -62,7 +65,16 @@ function draw() {
     }
 
     if (
-      collideRectRect(bird.x, bird.y, bird.width, bird.height, obstacle.x, 0, obstacle.width, obstacle.upperHeight) ||
+      collideRectRect(
+        bird.x,
+        bird.y,
+        bird.width,
+        bird.height,
+        obstacle.x,
+        0,
+        obstacle.width,
+        obstacle.upperHeight
+      ) ||
       collideRectRect(
         bird.x,
         bird.y,

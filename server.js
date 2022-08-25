@@ -1,3 +1,4 @@
+const { json } = require('express');
 const express = require('express');
 const Datastore = require('nedb');
 require('dotenv').config();
@@ -21,22 +22,32 @@ app.use(express.static('public'));
 // Make server parse incoming data as JSON, and limit input size to 1mb
 app.use(express.json({ limit: '1mb' }));
 
-// Variable to store username and score
-const userData = {};
-
 // API path to recieve username and score
-app.post('/score', (request, response) => {
-  if (request.body.score > 0) {
-    userData.score = request.body.score;
-    database.insert(request.body);
-  }
-  response.end();
-});
+let dbWorstScore;
+let numberOfScores;
 
-// API path to get score
-app.get('/score', (request, response) => {
-  response.json(userData);
-  response.end();
+app.post('/score', (request, response) => {
+  // Save score to database if it's in TOP 5
+  async function findLowestScoreInDB() {
+    await database
+      .find({})
+      .sort({ score: 1 })
+      .limit(5)
+      .exec(function (err, docs) {
+        dbWorstScore = docs[0].score;
+        numberOfScores = docs.length;
+      });
+
+    if (request.body.score > 0) {
+      if (request.body.score > dbWorstScore || numberOfScores < 5) {
+        database.insert(request.body);
+      }
+    }
+
+    response.end();
+  }
+
+  findLowestScoreInDB();
 });
 
 // API path to get leaderboard (top 5 scores)

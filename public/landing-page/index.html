@@ -10,19 +10,30 @@
       integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
       crossorigin="anonymous"
     />
-    <title>Landing Page</title>
+    <link
+      rel="shortcut icon"
+      href="../game/images/favicon.ico"
+      type="image/x-icon"
+    />
+    <title>Flappy bird clone</title>
   </head>
   <body>
     <div class="container d-flex justify-content-center">
-      <h1 style="display: none" class="text-center">
-        Hi <span></span>. If you don't want to switch nickname - click Start game
-      </h1>
       <form>
         <div class="form-group mt-2 text-center">
           <label for="exampleInputText">Choose a new nickname:</label>
-          <input type="text" class="form-control mt-2" id="exampleInputText" placeholder="Enter nickname" />
-          <button type="submit" class="btn btn-primary mt-2" id="button">Start game</button>
-          <button type="submit" class="btn btn-secondary mt-2" id="leaderboard">Go to leaderboard</button>
+          <input
+            type="text"
+            class="form-control mt-2"
+            id="exampleInputText"
+            placeholder="Enter nickname"
+          />
+          <button type="submit" class="btn btn-primary mt-2" id="button">
+            Start game
+          </button>
+          <button type="submit" class="btn btn-secondary mt-2" id="leaderboard">
+            Go to leaderboard
+          </button>
         </div>
       </form>
     </div>
@@ -35,6 +46,7 @@
     if (usernameFromLocalStorage) {
       const welcomeMessage = document.createElement('p');
       welcomeMessage.textContent = ` Hi ${usernameFromLocalStorage}. If you don't want to switch nickname - click Start game.`;
+      welcomeMessage.classList.add('text-center');
       document.querySelector('body').prepend(welcomeMessage);
     }
 
@@ -43,7 +55,8 @@
       event.preventDefault();
 
       // Get username from input field
-      const usernameFromInput = document.getElementById('exampleInputText').value;
+      const usernameFromInput =
+        document.getElementById('exampleInputText').value;
 
       // Check if username is valid
       if (usernameFromLocalStorage === null && usernameFromInput === '') {
@@ -52,20 +65,31 @@
       }
 
       // Save input username to local storage if it's different than local storage username
-      if (usernameFromInput !== usernameFromLocalStorage && usernameFromInput !== '') {
-        localStorage.setItem('username', usernameFromInput.trim().toLocaleLowerCase());
+      if (
+        usernameFromInput !== usernameFromLocalStorage &&
+        usernameFromInput !== ''
+      ) {
+        localStorage.setItem(
+          'username',
+          usernameFromInput.trim().toLocaleLowerCase()
+        );
       } else {
-        localStorage.setItem('username', usernameFromLocalStorage.toLocaleLowerCase());
+        localStorage.setItem(
+          'username',
+          usernameFromLocalStorage.toLocaleLowerCase()
+        );
       }
 
       // Switch to game URL
       location.href = '../game/index.html';
     });
 
-    document.getElementById('leaderboard').addEventListener('click', (event) => {
-      event.preventDefault();
-      // Switch to URL for the leaderboard
-      location.href = '../leader-board/index.html';
-    });
+    document
+      .getElementById('leaderboard')
+      .addEventListener('click', (event) => {
+        event.preventDefault();
+        // Switch to URL for the leaderboard
+        location.href = '../leader-board/index.html';
+      });
   </script>
 </html>

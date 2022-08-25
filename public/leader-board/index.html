@@ -10,7 +10,12 @@
       integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
       crossorigin="anonymous"
     />
-    <title>Leader Board</title>
+    <link
+      rel="shortcut icon"
+      href="../game/images/favicon.ico"
+      type="image/x-icon"
+    />
+    <title>Flappy bird clone</title>
   </head>
   <body>
     <h1 style="display: none">Game Over</h1>
@@ -20,7 +25,7 @@
         <tr>
           <th scope="col">Rank</th>
           <th scope="col">Nickname</th>
-          <th scope="col">score</th>
+          <th scope="col">Score</th>
         </tr>
       </thead>
       <tbody>
@@ -56,27 +61,13 @@
 
     <script>
       async function getScore() {
-        const username = localStorage.getItem('username');
-
-        const scoreData = await fetch('/score');
-        const scoreJson = await scoreData.json();
-
-        if (username) {
-          document.querySelector('h1').style.display = 'block';
-          document.querySelector('h2').style.display = 'block';
-        }
-
-        if (scoreJson.score > 0) {
-          document.getElementById('score').textContent = `Congrats ${username}, Your total score is ${scoreJson.score}`;
-        } else {
-          document.getElementById('score').textContent = 'Better luck next time';
-        }
-
         const leaderboardData = await fetch('/leaderboard');
         const leaderboardJson = await leaderboardData.json();
         for (let i = 0; i < leaderboardJson.length; i++) {
-          document.getElementById(`${i}-username`).textContent = leaderboardJson[i].username;
-          document.getElementById(`${i}-score`).textContent = leaderboardJson[i].score;
+          document.getElementById(`${i}-username`).textContent =
+            leaderboardJson[i].username;
+          document.getElementById(`${i}-score`).textContent =
+            leaderboardJson[i].score;
         }
       }
 
