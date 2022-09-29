@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Flappy bird clone made for learning purposes. The game is hosted on [glitch](https://glitch.com/). Click [here]() to play. Designed for mobile phones.
+Flappy bird clone made for learning purposes. The game is hosted on [glitch](https://glitch.com/). Click [here](https://booming-same-radium.glitch.me/landing-page/) to play. Designed for mobile phones.
 
 ---
 
